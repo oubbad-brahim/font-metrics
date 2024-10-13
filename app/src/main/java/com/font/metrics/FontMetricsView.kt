@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.text.TextPaint
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 
@@ -18,14 +19,15 @@ class FontMetricsView @JvmOverloads constructor(
 
     companion object {
         const val DEFAULT_TEXT = "My text line"
-        const val DEFAULT_FONT_SIZE_PX = 96
+        const val DEFAULT_FONT_SIZE_PX = 96f
         const val STROKE_WIDTH = 2.0f
     }
 
     private var mText = DEFAULT_TEXT
-    private var mTextSize = 0
+    private var mTextSize = DEFAULT_FONT_SIZE_PX
     private var mAscentPaint = Paint()
     private var mTopPaint = Paint()
+    private var mMeanLinePaint = Paint()
     private var mBaselinePaint = Paint()
     private var mDescentPaint = Paint()
     private var mBottomPaint = Paint()
@@ -35,8 +37,10 @@ class FontMetricsView @JvmOverloads constructor(
     private var mLinePaint = Paint()
     private var mRectPaint = Paint()
     private var mBounds: Rect = Rect()
+    private var mXBounds: Rect = Rect()
     private var mIsTopVisible = true
     private var mIsAscentVisible = true
+    private var mIsMeanLineVisible = true
     private var mIsBaselineVisible = true
     private var mIsDescentVisible = true
     private var mIsBottomVisible = true
@@ -46,8 +50,17 @@ class FontMetricsView @JvmOverloads constructor(
     init {
         mTextSize = DEFAULT_FONT_SIZE_PX
         mTextPaint.isAntiAlias = true
-        mTextPaint.textSize = mTextSize.toFloat()
+        mTextPaint.textSize = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_PX,
+            mTextSize,
+            resources.displayMetrics
+        )
         mTextPaint.color = Color.BLACK
+
+        val typeface = ResourcesCompat.getFont(context, R.font.roboto)
+        if (typeface != null) {
+            mTextPaint.typeface = typeface
+        }
 
         mLinePaint.color = Color.RED
         mLinePaint.strokeWidth = STROKE_WIDTH
@@ -57,6 +70,9 @@ class FontMetricsView @JvmOverloads constructor(
 
         mTopPaint.color = ResourcesCompat.getColor(resources, R.color.top, null)
         mTopPaint.strokeWidth = STROKE_WIDTH
+
+        mMeanLinePaint.color = ResourcesCompat.getColor(resources, R.color.mean_line, null)
+        mMeanLinePaint.strokeWidth = STROKE_WIDTH
 
         mBaselinePaint.color = ResourcesCompat.getColor(resources, R.color.baseline, null)
         mBaselinePaint.strokeWidth = STROKE_WIDTH
@@ -108,6 +124,13 @@ class FontMetricsView @JvmOverloads constructor(
             startY = mTextPaint.fontMetrics.ascent
             stopY = startY
             canvas.drawLine(startX, startY, stopX, stopY, mAscentPaint)
+        }
+
+        if (mIsMeanLineVisible) {
+            startY = mTextPaint.fontMetrics.top
+            mTextPaint.getTextBounds("x", 0, 1, mXBounds)
+            val meanLineY = startY + mXBounds.height()
+            canvas.drawLine(startX, meanLineY, stopX, meanLineY, mMeanLinePaint)
         }
 
         if (mIsBaselineVisible) {
@@ -194,6 +217,14 @@ class FontMetricsView @JvmOverloads constructor(
             return mBounds
         }
 
+    val meanLine: Float
+        get() {
+            val startY = mTextPaint.fontMetrics.top
+            mTextPaint.getTextBounds("x", 0, 1, mXBounds)
+            val meanLineY = startY + mXBounds.height()
+            return meanLineY
+        }
+
     val measuredTextWidth: Float
         get() = mTextPaint.measureText(mText)
 
@@ -203,9 +234,13 @@ class FontMetricsView @JvmOverloads constructor(
         requestLayout()
     }
 
-    fun setTextSizeInPixels(pixels: Int) {
+    fun setTextSizeInPixels(pixels: Float) {
         mTextSize = pixels
-        mTextPaint.textSize = mTextSize.toFloat()
+        mTextPaint.textSize = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_PX,
+            mTextSize,
+            resources.displayMetrics
+        )
         invalidate()
         requestLayout()
     }
@@ -217,6 +252,11 @@ class FontMetricsView @JvmOverloads constructor(
 
     fun setAscentVisible(isVisible: Boolean) {
         mIsAscentVisible = isVisible
+        invalidate()
+    }
+
+    fun setMeanLineVisible(isVisible: Boolean) {
+        mIsMeanLineVisible = isVisible
         invalidate()
     }
 

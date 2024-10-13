@@ -1,5 +1,9 @@
 <resources>
 
+    <style name="Theme.MyApplication.CheckBoxMeanLine" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorControlActivated">@color/mean_line</item>
+    </style>
+
     <style name="Theme.MyApplication.CheckBoxAscent" parent="Theme.MaterialComponents.DayNight">
         <item name="colorControlActivated">@color/ascent</item>
     </style>

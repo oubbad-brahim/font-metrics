@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
             binding.viewWindow.setText(binding.etTextString.text.toString())
             val fontSize = try {
-                binding.etFontSize.text.toString().toInt()
+                binding.etFontSize.text.toString().toFloat()
             } catch (e: NumberFormatException) {
                 FontMetricsView.DEFAULT_FONT_SIZE_PX
             }
@@ -46,6 +46,13 @@ class MainActivity : AppCompatActivity() {
                 isChecked
             )
         }
+
+        binding.cbMeanLine.setOnCheckedChangeListener { _, isChecked ->
+            binding.viewWindow.setMeanLineVisible(
+                isChecked
+            )
+        }
+
         binding.cbAscent.setOnCheckedChangeListener { _, isChecked ->
             binding.viewWindow.setAscentVisible(
                 isChecked
@@ -85,6 +92,7 @@ class MainActivity : AppCompatActivity() {
             with(viewWindow) {
                 tvTop.text = "${fontMetrics.top}"
                 tvAscent.text = "${fontMetrics.ascent}"
+                tvMeanLine.text = "$meanLine"
                 tvBaseline.text = "0"
                 tvDescent.text = "${fontMetrics.descent}"
                 tvBottom.text = "${fontMetrics.bottom}"

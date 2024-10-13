@@ -210,11 +210,32 @@
                 android:textColor="@android:color/darker_gray"
                 tools:text="10" />
 
+            <CheckBox
+                android:id="@+id/cbMeanLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cbTextBounds"
+                android:checked="true"
+                android:text="@string/mean_line"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:theme="@style/Theme.MyApplication.CheckBoxMeanLine" />
+
+            <TextView
+                android:id="@+id/tvMeanLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/cbMeanLine"
+                android:layout_marginStart="110dp"
+                android:layout_toEndOf="@id/cbTop"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/darker_gray"
+                tools:text="10" />
+
             <TextView
                 android:id="@+id/tvLeadingLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/cbTextBounds"
+                android:layout_below="@id/cbMeanLine"
                 android:layout_marginStart="33dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/leading"
