@@ -1,0 +1,31 @@
+<resources>
+
+    <style name="Theme.MyApplication.CheckBoxAscent" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorControlActivated">@color/ascent</item>
+    </style>
+
+    <style name="Theme.MyApplication.CheckboxTop" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorControlActivated">@color/top</item>
+    </style>
+
+    <style name="Theme.MyApplication.CheckboxBaseline" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorControlActivated">@color/baseline</item>
+    </style>
+
+    <style name="Theme.MyApplication.CheckboxDescent" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorControlActivated">@color/descent</item>
+    </style>
+
+    <style name="Theme.MyApplication.CheckboxBottom" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorControlActivated">@color/bottom</item>
+    </style>
+
+    <style name="Theme.MyApplication.MeasuredWidth" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorControlActivated">@color/measured_width</item>
+    </style>
+
+    <style name="Theme.MyApplication.TextBounds" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorControlActivated">@color/text_bounds</item>
+    </style>
+
+</resources>

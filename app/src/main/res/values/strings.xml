@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Font Metrics</string>
+    <string name="top">Top</string>
+    <string name="ascent">Ascent</string>
+    <string name="baseline">Baseline</string>
+    <string name="descent">Descent</string>
+    <string name="bottom">Bottom</string>
+    <string name="measured_width">Measured width</string>
+    <string name="text_bounds">Text bounds</string>
+    <string name="leading">Leading</string>
+    <string name="my_text_line">My text line</string>
+    <string name="update_text">Update text</string>
+    <string name="_17">17</string>
+</resources>
